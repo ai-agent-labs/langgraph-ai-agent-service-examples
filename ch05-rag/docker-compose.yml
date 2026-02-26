@@ -1,0 +1,45 @@
+# OpenSearch 개발 환경 설정
+#
+# 사용법:
+#   docker compose up -d      # 시작
+#   docker compose down       # 중지
+#   docker compose down -v    # 중지 및 데이터 삭제
+
+services:
+  opensearch:
+    image: opensearchproject/opensearch:2.11.0
+    container_name: opensearch-rag
+    environment:
+      - discovery.type=single-node
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Admin123!
+      - plugins.security.disabled=true  # 개발용: 보안 비활성화
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"   # REST API
+      - "9600:9600"   # Performance Analyzer
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 | grep -q 'cluster_name'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # OpenSearch Dashboards (선택사항)
+  # 웹 UI로 인덱스와 데이터를 확인할 수 있습니다
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:2.11.0
+    container_name: opensearch-dashboards
+    environment:
+      - OPENSEARCH_HOSTS=["http://opensearch:9200"]
+      - DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+    ports:
+      - "5601:5601"
+    depends_on:
+      opensearch:
+        condition: service_healthy
+    profiles:
+      - dashboards  # docker compose --profile dashboards up -d
+
+volumes:
+  opensearch-data:
