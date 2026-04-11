@@ -59,11 +59,15 @@ Ch02 (시작) → Ch03 (기초 체인) → Ch06 (메모리) → Ch07 (도구/MCP
 
 ## 기술 스택
 
-- Python 3.11 이상
-- LangChain >=0.3.25
-- LangChain Core >=0.3.61
-- LangGraph >=0.4.8
+책 2장의 의존성 사양을 기준으로 통일되어 있습니다.
+
+- Python 3.13 이상
+- LangChain >=1.2.7
+- LangChain Core >=1.2.7
+- LangChain OpenAI >=1.1.7
+- LangGraph >=1.0.7
 - LangGraph Supervisor >=0.0.12
+- python-dotenv >=1.1.0
 - Streamlit >=1.45.1
 
 ## 디렉토리 구조

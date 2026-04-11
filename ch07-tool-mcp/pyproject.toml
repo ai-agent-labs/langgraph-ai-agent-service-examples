@@ -2,11 +2,12 @@
 name = "ch07-tool-mcp"
 version = "0.1.0"
 description = "Chapter 9: HR 정책 어시스턴트 + 도구 (연차 조회, 정책 검색, 휴가 신청)"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 dependencies = [
-    "langchain>=0.3.25",
-    "langchain-core>=0.3.61",
-    "langchain-openai>=0.3.18",
+    # LangChain 핵심 (책 2장 기준)
+    "langchain>=1.2.7",
+    "langchain-core>=1.2.7",
+    "langchain-openai>=1.1.7",
     "pydantic>=2.11.5",
     "pydantic-settings>=2.9.1",
     "python-dotenv>=1.1.0",

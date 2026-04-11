@@ -3,18 +3,18 @@ name = "qa-chatbot"
 version = "0.1.0"
 description = "AI 에이전트 개발 기술서 - 3장 LangChain 기초 실습 프로젝트"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 license = { text = "MIT" }
 authors = [{ name = "AI Agent Book", email = "example@example.com" }]
 keywords = ["ai", "langchain", "lcel", "qa", "chatbot"]
 
 dependencies = [
-    # LangChain 핵심 (2025.12 기준)
-    "langchain>=1.1.3",
-    "langchain-core>=1.1.3",
-    "langchain-openai>=1.1.1",
+    # LangChain 핵심 (책 2장 기준)
+    "langchain>=1.2.7",
+    "langchain-core>=1.2.7",
+    "langchain-openai>=1.1.7",
     # 설정 관리
-    "python-dotenv>=1.0.1",
+    "python-dotenv>=1.1.0",
     "pydantic>=2.12.5",
     "pydantic-settings>=2.12.0",
     # 웹 UI
@@ -36,7 +36,7 @@ build-backend = "hatchling.build"
 packages = ["src/qa_chatbot"]
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py313"
 line-length = 88
 
 [tool.ruff.lint]
