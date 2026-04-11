@@ -5,12 +5,13 @@ from langchain.chat_models import init_chat_model
 from langchain_core.messages import HumanMessage
 from langgraph.graph import StateGraph, START, END
 
+from hr_team.agents import create_benefit_agent, create_leave_agent
 from hr_team.config import get_settings
-from hr_team.agents import create_leave_agent, create_benefit_agent, create_policy_agent
 
 
 class SupervisorState(TypedDict):
     """Supervisor 상태"""
+
     messages: list
     next_agent: str
 
@@ -21,7 +22,6 @@ SUPERVISOR_PROMPT = """당신은 HR 팀의 수퍼바이저입니다.
 팀 구성:
 - leave_agent: 휴가/연차 관련 (잔여 연차, 휴가 신청)
 - benefit_agent: 복리후생 관련 (건강검진, 교육비, 통신비)
-- policy_agent: 정책/규정 관련 (재택근무, 야근)
 
 요청을 읽고 가장 적합한 에이전트 이름을 선택하세요.
 복합 요청의 경우 가장 중요한 부분을 처리할 에이전트를 선택하세요."""
@@ -33,11 +33,10 @@ def create_supervisor_node(model):
     # 구조화된 출력으로 next_agent 선택
     class RouterDecision(TypedDict):
         """라우터 결정"""
-        next_agent: Literal["leave_agent", "benefit_agent", "policy_agent"]
 
-    supervisor_chain = (
-        model.with_structured_output(RouterDecision)
-    )
+        next_agent: Literal["leave_agent", "benefit_agent"]
+
+    supervisor_chain = model.with_structured_output(RouterDecision)
 
     def supervisor(state: SupervisorState) -> SupervisorState:
         """슈퍼바이저: 다음 에이전트 결정"""
@@ -79,10 +78,9 @@ def create_hr_supervisor():
         temperature=settings.temperature,
     )
 
-    # 에이전트 생성
+    # 에이전트 생성 (책 11.4절: 도메인 에이전트 2개 + 슈퍼바이저 1개)
     leave_agent = create_leave_agent()
     benefit_agent = create_benefit_agent()
-    policy_agent = create_policy_agent()
 
     # 그래프 구성
     workflow = StateGraph(SupervisorState)
@@ -91,7 +89,6 @@ def create_hr_supervisor():
     workflow.add_node("supervisor", create_supervisor_node(model))
     workflow.add_node("leave_agent", create_agent_node(leave_agent, "leave_agent"))
     workflow.add_node("benefit_agent", create_agent_node(benefit_agent, "benefit_agent"))
-    workflow.add_node("policy_agent", create_agent_node(policy_agent, "policy_agent"))
 
     # 엣지 추가
     workflow.add_edge(START, "supervisor")
@@ -101,12 +98,10 @@ def create_hr_supervisor():
         {
             "leave_agent": "leave_agent",
             "benefit_agent": "benefit_agent",
-            "policy_agent": "policy_agent",
-        }
+        },
     )
     workflow.add_edge("leave_agent", END)
     workflow.add_edge("benefit_agent", END)
-    workflow.add_edge("policy_agent", END)
 
     return workflow.compile()
 

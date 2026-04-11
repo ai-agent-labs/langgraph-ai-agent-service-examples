@@ -13,7 +13,6 @@ def render():
         st.markdown("""
         - 🏖️ **leave_agent**: 휴가/연차 전문
         - 🎁 **benefit_agent**: 복리후생 전문
-        - 📋 **policy_agent**: 정책/규정 전문
         - 👔 **supervisor**: 업무 조율
         """)
 
