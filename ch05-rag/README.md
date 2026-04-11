@@ -89,7 +89,7 @@ ch05-rag/
 
 ## 실습 내용
 
-### 7.3 RAG 구현
+### 기본 RAG 구현 (책 5.1~5.2절)
 
 ```python
 from rag_agent import setup_sample_index, ask_rag
@@ -102,12 +102,12 @@ answer = ask_rag("연차휴가는 며칠인가요?")
 print(answer)
 ```
 
-### 7.4 하이브리드 검색
+### 하이브리드 검색 (책 5.3~5.4절)
 
 ```python
 from rag_agent import hybrid_search
 
-# 하이브리드 검색 (벡터 + 키워드)
+# 하이브리드 검색 (벡터 + 키워드, RRF 결합)
 results = hybrid_search(
     query="재택근무 신청",
     k=5,
@@ -119,7 +119,12 @@ for r in results:
     print(f"[{r['score']:.3f}] {r['content'][:50]}...")
 ```
 
-### 7.5 Cross-Encoder 리랭킹
+### Cross-Encoder 리랭킹 (책 범위 밖 — 고급 기능)
+
+> **참고:** 책 5장 본문은 하이브리드 검색(RRF)까지 다룹니다. Cross-Encoder
+> 리랭킹은 실무에서 자주 쓰는 RAG 품질 개선 기법으로, 책에는 별도 절로
+> 등장하지 않지만 참고용 예제로 포함했습니다. 독자가 책만 따라 한다면
+> 이 절은 건너뛰어도 무방합니다.
 
 ```python
 from rag_agent import search_with_rerank
@@ -135,7 +140,7 @@ for r in results:
     print(f"[{r['rerank_score']:.3f}] {r['content'][:50]}...")
 ```
 
-### 7.6 에이전틱 RAG
+### 에이전틱 RAG (책 5.5절)
 
 ```python
 from rag_agent import ask_agentic_rag

@@ -34,6 +34,7 @@ uv run streamlit run app.py
 |---|---|---|
 | `ch02-getting-started` | Ch02 | 개발 시작하기 |
 | `ch03-langchain-basics` | Ch03 | LangChain 기본 체인 |
+| `ch04-prompt-engineering` | Ch04 | 프롬프트 엔지니어링 |
 | `ch05-rag` | Ch05 | RAG 검색 |
 | `ch06-memory` | Ch06 | 대화 메모리 |
 | `ch07-tool-mcp` | Ch07 | 도구 호출과 MCP |
@@ -46,15 +47,15 @@ uv run streamlit run app.py
 ## 권장 학습 순서
 
 ```text
-Ch02 (시작) → Ch03 (기초 체인) → Ch06 (메모리) → Ch07 (도구/MCP) → Ch08 (구조화)
-                                                      ↓
-                                              Ch09 (LangGraph)
-                                                      ↓
-                                              Ch10 (단일 에이전트)
-                                                      ↓
-                                              Ch11 (멀티 에이전트)
-                                                      ↓
-                                         Ch05 (RAG) → Ch13 (평가)
+Ch02 (시작) → Ch03 (기초 체인) → Ch04 (프롬프트) → Ch06 (메모리) → Ch07 (도구/MCP) → Ch08 (구조화)
+                                                                         ↓
+                                                                 Ch09 (LangGraph)
+                                                                         ↓
+                                                                 Ch10 (단일 에이전트)
+                                                                         ↓
+                                                                 Ch11 (멀티 에이전트)
+                                                                         ↓
+                                                            Ch05 (RAG) → Ch13 (평가)
 ```
 
 ## 기술 스택
@@ -80,6 +81,7 @@ Ch02 (시작) → Ch03 (기초 체인) → Ch06 (메모리) → Ch07 (도구/MCP
 │   └── utils.py
 ├── ch02-getting-started/
 ├── ch03-langchain-basics/
+├── ch04-prompt-engineering/
 ├── ch05-rag/
 ├── ch06-memory/
 ├── ch07-tool-mcp/
