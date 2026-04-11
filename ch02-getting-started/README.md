@@ -53,7 +53,7 @@ OPENAI_API_KEY=sk-proj-your-actual-api-key
 
 ```bash
 # 웹 UI 실행
-uv run streamlit run app.py
+uv run streamlit run src/app.py
 ```
 
 ## 프로젝트 구조
@@ -61,6 +61,7 @@ uv run streamlit run app.py
 ```
 ch02-getting-started/
 ├── src/
+│   ├── app.py               # Streamlit 웹 앱
 │   └── my_agent/
 │       ├── __init__.py      # 패키지 초기화
 │       ├── agent.py         # 에이전트 로직
@@ -68,7 +69,6 @@ ch02-getting-started/
 ├── .env.example             # 환경변수 템플릿
 ├── .gitignore               # Git 제외 파일
 ├── .python-version          # Python 버전
-├── app.py                   # Streamlit 웹 앱
 ├── pyproject.toml           # 프로젝트 설정
 └── README.md                # 이 파일
 ```
@@ -78,7 +78,7 @@ ch02-getting-started/
 ### 웹 UI (Streamlit)
 
 ```bash
-uv run streamlit run app.py
+uv run streamlit run src/app.py
 ```
 
 브라우저에서 `http://localhost:8501`로 접속합니다.
@@ -151,7 +151,7 @@ Port 8501 is already in use
 
 **해결:** 다른 포트 사용:
 ```bash
-uv run streamlit run app.py --server.port 8502
+uv run streamlit run src/app.py --server.port 8502
 ```
 
 ## 참고 자료
