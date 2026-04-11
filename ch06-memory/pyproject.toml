@@ -1,7 +1,7 @@
 [project]
 name = "ch06-memory"
 version = "0.1.0"
-description = "Chapter 8: 대화 메모리 챗봇 예제"
+description = "Chapter 6: 대화 메모리 챗봇 예제"
 requires-python = ">=3.11"
 dependencies = [
     "langchain>=1.1.3",

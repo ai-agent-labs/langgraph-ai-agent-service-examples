@@ -69,4 +69,4 @@ with st.sidebar:
     - ✅ 자동 검증
     """)
     st.divider()
-    st.caption("AI 에이전트 개발 기술서 - 10장 예제")
+    st.caption("AI 에이전트 개발 기술서 - 8장 예제")

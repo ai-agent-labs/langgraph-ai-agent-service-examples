@@ -7,7 +7,7 @@ from hr_router.graph import run_hr_router
 
 st.set_page_config(page_title="HR 요청 라우터", page_icon="🔀", layout="wide")
 st.title("🔀 HR 요청 라우터")
-st.caption("Chapter 11: LangGraph 조건부 라우팅")
+st.caption("Chapter 9: LangGraph 조건부 라우팅")
 
 # 사이드바
 with st.sidebar:

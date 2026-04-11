@@ -7,7 +7,7 @@ from hr_assistant.chain import chat_with_tools
 
 st.set_page_config(page_title="HR 정책 어시스턴트", page_icon="👔", layout="wide")
 st.title("👔 HR 정책 어시스턴트")
-st.caption("Chapter 9: 도구 호출 (Tool Calling)")
+st.caption("Chapter 7: 도구 호출 (Tool Calling)")
 
 # 사이드바
 with st.sidebar:
@@ -34,7 +34,7 @@ with st.sidebar:
         st.rerun()
 
     st.divider()
-    st.caption("AI 에이전트 개발 기술서 - 9장 예제")
+    st.caption("AI 에이전트 개발 기술서 - 7장 예제")
 
 st.markdown("""
 **예제 질문:**

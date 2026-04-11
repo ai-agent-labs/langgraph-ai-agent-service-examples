@@ -1,4 +1,4 @@
-# Chapter 9: HR 정책 어시스턴트 + 도구
+# Chapter 7: HR 정책 어시스턴트 + 도구
 
 LangChain의 도구 호출(Tool Calling) 기능을 활용한 HR 어시스턴트 예제입니다.
 
