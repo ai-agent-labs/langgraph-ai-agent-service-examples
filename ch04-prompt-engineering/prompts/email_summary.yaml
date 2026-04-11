@@ -1,0 +1,13 @@
+_type: prompt
+template: |
+  <instructions>
+    이메일 내용을 요약하세요.
+  </instructions>
+  <input>
+    {email}
+  </input>
+  <constraints>
+    30자 이내로 요약할 것
+  </constraints>
+input_variables:
+  - email
