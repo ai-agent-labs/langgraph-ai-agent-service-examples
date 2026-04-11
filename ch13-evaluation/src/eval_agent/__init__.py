@@ -1,5 +1,5 @@
 """
-Eval Agent - AI 에이전트 개발 기술서 15장 실습 프로젝트
+Eval Agent - AI 에이전트 개발 기술서 13장 실습 프로젝트
 
 이 패키지는 Langfuse를 활용한 LLM 애플리케이션의
 관찰성(Observability)과 평가(Evaluation) 기능을 제공합니다.
@@ -7,13 +7,15 @@ Eval Agent - AI 에이전트 개발 기술서 15장 실습 프로젝트
 주요 기능:
 - Langfuse 트레이싱 자동 연동
 - RAG 파이프라인 추적
-- 평가 점수 기록
+- 평가 점수 기록 (Faithfulness, Context Precision/Recall, Answer Relevance)
 - PII 마스킹
 """
 
 from eval_agent.config import Settings, get_settings
 from eval_agent.evaluation import (
     create_score,
+    evaluate_context_precision,
+    evaluate_context_recall,
     evaluate_faithfulness,
     evaluate_response,
 )
@@ -52,5 +54,7 @@ __all__ = [
     # 평가
     "evaluate_response",
     "evaluate_faithfulness",
+    "evaluate_context_precision",
+    "evaluate_context_recall",
     "create_score",
 ]
