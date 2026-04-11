@@ -3,18 +3,18 @@ name = "langgraph-ai-agent-service-examples"
 version = "0.1.0"
 description = "langgraph-ai-agent-service-examples 저장소용 AI 에이전트 실습 예제"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 license = { text = "MIT" }
 authors = [{ name = "AI Agent Book" }]
 
 dependencies = [
-    # LangChain 핵심 (2025.12 기준)
-    "langchain>=0.3.25",
-    "langchain-core>=0.3.61",
-    "langchain-openai>=0.3.18",
+    # LangChain 핵심 (책 2장 기준)
+    "langchain>=1.2.7",
+    "langchain-core>=1.2.7",
+    "langchain-openai>=1.1.7",
 
     # LangGraph
-    "langgraph>=0.4.8",
+    "langgraph>=1.0.7",
     "langgraph-supervisor>=0.0.12",
 
     # 설정 관리
@@ -41,7 +41,7 @@ build-backend = "hatchling.build"
 packages = ["shared"]
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py313"
 line-length = 88
 
 [tool.ruff.lint]
