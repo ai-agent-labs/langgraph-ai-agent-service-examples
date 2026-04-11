@@ -1,9 +1,9 @@
 from langgraph.graph import StateGraph, START, END
 
-from hr_router.state import HRRequestState
+from hr_router.state import State
 from hr_router.nodes import (
     classify_node,
-    route_query,
+    route_by_category,
     leave_node,
     benefit_node,
     policy_node,
@@ -13,7 +13,7 @@ from hr_router.nodes import (
 
 
 def create_hr_router() -> StateGraph:
-    graph = StateGraph(HRRequestState)
+    graph = StateGraph(State)
 
     graph.add_node("classify", classify_node)
     graph.add_node("leave", leave_node)
@@ -25,7 +25,7 @@ def create_hr_router() -> StateGraph:
     graph.add_edge(START, "classify")
     graph.add_conditional_edges(
         "classify",
-        route_query,
+        route_by_category,
         {
             "leave": "leave",
             "benefit": "benefit",
