@@ -42,7 +42,7 @@ uv run streamlit run app.py
 | `ch09-langgraph` | Ch09 | LangGraph 라우팅 |
 | `ch10-single-agent` | Ch10 | 단일 에이전트 |
 | `ch11-multi-agent` | Ch11 | 멀티 에이전트 |
-| `ch13-evaluation` | Ch13 | 평가와 모니터링 |
+| `ch13-evaluation` | Ch13 | 평가와 품질 관리 |
 
 ## 권장 학습 순서
 
