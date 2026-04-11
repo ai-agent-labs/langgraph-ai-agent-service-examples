@@ -19,14 +19,12 @@ with st.sidebar:
     workflow.add_node("supervisor", supervisor_node)
     workflow.add_node("leave_agent", leave_node)
     workflow.add_node("benefit_agent", benefit_node)
-    workflow.add_node("policy_agent", policy_node)
     workflow.add_conditional_edges("supervisor", router)
     ```
 
     **팀 구성:**
     - 🏖️ `leave_agent`: 휴가 전문
     - 🎁 `benefit_agent`: 복리후생
-    - 📋 `policy_agent`: 정책 전문
     - 👔 `supervisor`: 업무 조율
     """)
 
