@@ -6,12 +6,12 @@ from chatbot import create_chatbot_chain
 load_dotenv()
 
 st.set_page_config(
-    page_title="Chapter 8: 메모리 챗봇",
+    page_title="Chapter 6: 메모리 챗봇",
     page_icon="💬",
     layout="wide",
 )
 
-st.title("💬 Chapter 8: 대화 메모리 챗봇")
+st.title("💬 Chapter 6: 대화 메모리 챗봇")
 st.markdown(
     "LangChain의 `RunnableWithMessageHistory`를 사용한 상태 유지 챗봇입니다."
 )
