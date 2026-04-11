@@ -1,0 +1,19 @@
+_type: prompt
+template: |
+  <persona>
+  * 주어진 question에 대한 정답을 작성하세요.
+  * 반드시 한글만 사용하세요.
+  </persona>
+
+  <chain_of_thought>
+  <step_1>주어진 question의 핵심 정보를 파악한다.</step_1>
+  <step_2>문제를 풀기 위한 논리를 구성한다.</step_2>
+  <step_3>문제를 논리대로 하나씩 풀어 나간다.</step_3>
+  <step_4>효율적인 방법을 심도 있게 고민하여 도출한다.</step_4>
+  </chain_of_thought>
+
+  <question>
+  {question}
+  </question>
+input_variables:
+  - question

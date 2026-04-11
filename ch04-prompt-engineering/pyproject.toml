@@ -1,0 +1,51 @@
+[project]
+name = "prompt-engineering"
+version = "0.1.0"
+description = "AI 에이전트 개발 기술서 - 4장 프롬프트 엔지니어링 실습 프로젝트"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "AI Agent Book", email = "example@example.com" }]
+keywords = ["ai", "langchain", "prompt-engineering", "cot", "persona"]
+
+dependencies = [
+    "langchain>=1.1.3",
+    "langchain-core>=1.1.3",
+    "langchain-openai>=1.1.1",
+    "python-dotenv>=1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.14.8",
+    "mypy>=1.19.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prompt_engineering"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "B",
+    "UP",
+]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
