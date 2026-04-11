@@ -8,6 +8,7 @@ Eval Agent - AI 에이전트 개발 기술서 13장 실습 프로젝트
 - Langfuse 트레이싱 자동 연동
 - RAG 파이프라인 추적
 - 평가 점수 기록 (Faithfulness, Context Precision/Recall, Answer Relevance)
+- RAGAS 기반 배치 평가 (13.3절)
 - PII 마스킹
 """
 
@@ -57,4 +58,15 @@ __all__ = [
     "evaluate_context_precision",
     "evaluate_context_recall",
     "create_score",
+    # 배치 평가 (RAGAS)
+    "evaluate_rag_batch",
 ]
+
+
+def __getattr__(name: str):  # pragma: no cover - lazy import
+    """RAGAS는 무거운 의존성이므로 필요할 때만 로드한다."""
+    if name == "evaluate_rag_batch":
+        from eval_agent.ragas_eval import evaluate_rag_batch
+
+        return evaluate_rag_batch
+    raise AttributeError(f"module 'eval_agent' has no attribute {name!r}")
