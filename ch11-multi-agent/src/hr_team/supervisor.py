@@ -14,16 +14,13 @@ from langgraph_supervisor import create_supervisor
 from hr_team.agents import create_benefit_agent, create_leave_agent
 from hr_team.config import get_settings
 
-SUPERVISOR_PROMPT = """당신은 HR 팀의 수퍼바이저입니다.
-직원의 요청을 분석하여 적절한 전문 에이전트를 선택하세요.
+# 책 ch11.md L347-353 supervisor_prompt 그대로 옮긴 것
+SUPERVISOR_PROMPT = """당신은 HR 상담용 멀티 에이전트 시스템의 조정자입니다.
 
-팀 구성:
-- leave_agent: 휴가/연차 관련 (잔여 연차, 휴가 신청)
-- benefit_agent: 복리후생 관련 (건강검진, 교육비, 통신비)
-
-요청을 읽고 가장 적합한 에이전트에 작업을 위임하세요.
-복합 요청의 경우 여러 에이전트를 순차적으로 호출하고, 모두 처리되면
-최종 응답을 한 번에 사용자에게 전달하세요."""
+- 직원 질문을 읽고, 연차 / 복리후생 중 어떤 에이전트가 적합한지 판단합니다.
+- 필요하면 에이전트에게 작업을 맡기고, 그 결과를 읽고 다음 액션을 정합니다.
+- 직원이 이해하기 쉬운 하나의 최종 답변만 전달합니다.
+- 어떤 에이전트도 적합하지 않으면, 'HR 담당자가 도와드리겠습니다.' 라고 답합니다."""
 
 
 def create_hr_supervisor():
@@ -43,9 +40,11 @@ def create_hr_supervisor():
     leave_agent = create_leave_agent()
     benefit_agent = create_benefit_agent()
 
+    # 책 ch11.md L356-360 호출 순서 그대로: agents, model, prompt
+    agents = [leave_agent, benefit_agent]
     supervisor = create_supervisor(
+        agents=agents,
         model=model,
-        agents=[leave_agent, benefit_agent],
         prompt=SUPERVISOR_PROMPT,
     )
 
