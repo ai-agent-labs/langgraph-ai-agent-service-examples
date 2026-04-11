@@ -5,6 +5,20 @@ from rag_agent.embeddings import create_embeddings
 from rag_agent.indexer import create_opensearch_client
 
 
+def rrf_score(ranks: list[int], k: int = 60) -> float:
+    """여러 검색 결과에서의 순위를 RRF 점수로 변환합니다.
+
+    책 ch05 5.4-3 "RRF 알고리즘" 예제 그대로의 구현:
+
+        # RRF 공식: score = Σ 1/(k + rank)
+        return sum(1 / (k + rank) for rank in ranks)
+
+    가중치를 주지 않는 순수 RRF. 여러 검색 방식(예: 벡터, 키워드)에서
+    동일 문서가 얻은 순위 리스트를 입력으로 받아 단일 점수로 합산합니다.
+    """
+    return sum(1 / (k + rank) for rank in ranks)
+
+
 def vector_search(
     query: str,
     k: int | None = None,
@@ -123,25 +137,27 @@ def hybrid_search(
     rrf_scores: dict[str, dict] = {}
 
     # 벡터 검색 결과에 RRF 점수 부여
-    for rank, result in enumerate(vector_results):
+    # 책 ch05 L1042 공식: sum(1/(k+rank))은 rank를 1-indexed로 다룸.
+    # enumerate는 0-indexed이므로 start=1로 맞춰 rrf_score 헬퍼와 같은 규약을 쓴다.
+    for rank, result in enumerate(vector_results, start=1):
         doc_id = result["id"]
-        rrf_score = vector_weight / (rrf_k + rank + 1)
+        score = vector_weight / (rrf_k + rank)
 
         if doc_id not in rrf_scores:
             rrf_scores[doc_id] = {
                 "content": result["content"],
                 "metadata": result["metadata"],
                 "score": 0,
-                "vector_rank": rank + 1,
+                "vector_rank": rank,
                 "keyword_rank": None,
             }
-        rrf_scores[doc_id]["score"] += rrf_score
-        rrf_scores[doc_id]["vector_rank"] = rank + 1
+        rrf_scores[doc_id]["score"] += score
+        rrf_scores[doc_id]["vector_rank"] = rank
 
     # 키워드 검색 결과에 RRF 점수 추가
-    for rank, result in enumerate(keyword_results):
+    for rank, result in enumerate(keyword_results, start=1):
         doc_id = result["id"]
-        rrf_score = keyword_weight / (rrf_k + rank + 1)
+        score = keyword_weight / (rrf_k + rank)
 
         if doc_id not in rrf_scores:
             rrf_scores[doc_id] = {
@@ -149,10 +165,10 @@ def hybrid_search(
                 "metadata": result["metadata"],
                 "score": 0,
                 "vector_rank": None,
-                "keyword_rank": rank + 1,
+                "keyword_rank": rank,
             }
-        rrf_scores[doc_id]["score"] += rrf_score
-        rrf_scores[doc_id]["keyword_rank"] = rank + 1
+        rrf_scores[doc_id]["score"] += score
+        rrf_scores[doc_id]["keyword_rank"] = rank
 
     # 점수순 정렬
     sorted_results = sorted(
