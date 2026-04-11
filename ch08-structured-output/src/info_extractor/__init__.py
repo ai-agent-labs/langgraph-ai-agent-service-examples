@@ -1,15 +1,11 @@
 from info_extractor.extractor import (
-    extract_contact_info,
+    create_structured_model,
     extract_leave_request,
-    extract_movie_info,
 )
-from info_extractor.schemas import ContactInfo, LeaveRequest, MovieInfo
+from info_extractor.schemas import LeaveRequest
 
 __all__ = [
-    "extract_contact_info",
-    "extract_leave_request",
-    "extract_movie_info",
-    "ContactInfo",
     "LeaveRequest",
-    "MovieInfo",
+    "extract_leave_request",
+    "create_structured_model",
 ]
