@@ -137,8 +137,9 @@ def hybrid_search(
     rrf_scores: dict[str, dict] = {}
 
     # 벡터 검색 결과에 RRF 점수 부여
-    # 책 ch05 L1042 공식: 1/(k+rank). 가중치는 외부에서 곱해 다중 소스 결합.
-    for rank, result in enumerate(vector_results):
+    # 책 ch05 L1042 공식: sum(1/(k+rank))은 rank를 1-indexed로 다룸.
+    # enumerate는 0-indexed이므로 start=1로 맞춰 rrf_score 헬퍼와 같은 규약을 쓴다.
+    for rank, result in enumerate(vector_results, start=1):
         doc_id = result["id"]
         score = vector_weight / (rrf_k + rank)
 
@@ -147,14 +148,14 @@ def hybrid_search(
                 "content": result["content"],
                 "metadata": result["metadata"],
                 "score": 0,
-                "vector_rank": rank + 1,
+                "vector_rank": rank,
                 "keyword_rank": None,
             }
         rrf_scores[doc_id]["score"] += score
-        rrf_scores[doc_id]["vector_rank"] = rank + 1
+        rrf_scores[doc_id]["vector_rank"] = rank
 
     # 키워드 검색 결과에 RRF 점수 추가
-    for rank, result in enumerate(keyword_results):
+    for rank, result in enumerate(keyword_results, start=1):
         doc_id = result["id"]
         score = keyword_weight / (rrf_k + rank)
 
@@ -164,10 +165,10 @@ def hybrid_search(
                 "metadata": result["metadata"],
                 "score": 0,
                 "vector_rank": None,
-                "keyword_rank": rank + 1,
+                "keyword_rank": rank,
             }
         rrf_scores[doc_id]["score"] += score
-        rrf_scores[doc_id]["keyword_rank"] = rank + 1
+        rrf_scores[doc_id]["keyword_rank"] = rank
 
     # 점수순 정렬
     sorted_results = sorted(
