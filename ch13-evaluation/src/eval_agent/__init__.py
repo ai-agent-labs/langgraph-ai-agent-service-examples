@@ -1,14 +1,10 @@
-"""
-Eval Agent - AI 에이전트 개발 기술서 13장 실습 프로젝트
-
-이 패키지는 Langfuse를 활용한 LLM 애플리케이션의
-관찰성(Observability)과 평가(Evaluation) 기능을 제공합니다.
+"""Eval Agent — Langfuse 기반 LLM 관찰성 + 평가 유틸리티.
 
 주요 기능:
 - Langfuse 트레이싱 자동 연동
 - RAG 파이프라인 추적
 - 평가 점수 기록 (Faithfulness, Context Precision/Recall, Answer Relevance)
-- RAGAS 기반 배치 평가 (13.3절)
+- RAGAS 기반 배치 평가
 - PII 마스킹
 """
 
