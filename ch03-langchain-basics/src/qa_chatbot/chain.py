@@ -41,19 +41,14 @@ def create_qa_chain(
     prompt: ChatPromptTemplate | None = None,
     model: BaseChatModel | None = None,
 ) -> Runnable:
-    """책 3.7-1절 "LCEL 기본 문법" 예제.
-
-    `prompt | model | StrOutputParser()` 형태의 기본 QA 체인을 구성합니다.
-    """
+    """`prompt | model | StrOutputParser()` 형태의 기본 QA 체인을 구성합니다."""
     prompt = prompt or DEFAULT_QA_PROMPT
     model = model or create_model()
     return prompt | model | StrOutputParser()
 
 
 def create_controversial_chain(model: BaseChatModel | None = None) -> Runnable:
-    """책 3.7-3절 RunnableParallel 예제 (L832-873).
-
-    한 주제에 대해 긍정적 설명과 비판적 설명을 병렬로 생성한 뒤,
+    """한 주제에 대해 긍정적 설명과 비판적 설명을 병렬로 생성한 뒤,
     종합 프롬프트로 균형 잡힌 시각을 돌려주는 체인입니다.
     """
     model = model or create_model()
