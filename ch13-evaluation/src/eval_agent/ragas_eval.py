@@ -1,10 +1,9 @@
-"""
-RAGAS 기반 배치 평가 래퍼.
+"""RAGAS 기반 배치 평가 래퍼.
 
-책 13.3절 "배치 평가"는 여러 질문-답변 샘플을 모아 한 번에 평가하는 방법을
-다룬다. 본 모듈은 ``ragas`` 라이브러리의 ``evaluate`` 함수를 감싸, 샘플
-리스트만 주면 Faithfulness / Answer Relevancy / Context Precision /
-Context Recall 네 가지 지표를 한 번에 계산해 돌려준다.
+여러 질문-답변 샘플을 모아 한 번에 평가할 수 있도록 ``ragas`` 라이브러리의
+``evaluate`` 함수를 감싼 모듈. 샘플 리스트만 주면 Faithfulness / Answer
+Relevancy / Context Precision / Context Recall 네 지표를 한 번에 계산해
+돌려준다.
 
 사용 예::
 
@@ -78,7 +77,7 @@ def evaluate_rag_batch(
         평가 지표 리스트. ``None``이면 기본값(faithfulness, answer_relevancy,
         context_precision, context_recall)을 사용.
     llm, embeddings:
-        평가용 LLM / 임베딩. ``None``이면 ``gpt-5.2`` (책 L330/354 와 동일) +
+        평가용 LLM / 임베딩. ``None``이면 ``gpt-5.2`` +
         ``text-embedding-3-small`` 조합을 LangChain 래퍼로 자동 구성한다.
 
     Returns
