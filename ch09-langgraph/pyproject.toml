@@ -1,7 +1,7 @@
 [project]
 name = "ch09-langgraph"
 version = "0.1.0"
-description = "Chapter 11: HR 요청 라우터 (LangGraph 조건부 워크플로우)"
+description = "Chapter 9: HR 요청 라우터 (LangGraph 조건부 워크플로우)"
 requires-python = ">=3.13"
 dependencies = [
     "langchain>=1.2.7",
