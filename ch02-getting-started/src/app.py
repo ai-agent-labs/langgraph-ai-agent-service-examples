@@ -4,7 +4,7 @@ Streamlit 채팅 애플리케이션
 AI 에이전트와 대화할 수 있는 웹 인터페이스를 제공합니다.
 
 실행 방법:
-    uv run streamlit run app.py
+    uv run streamlit run src/app.py
 """
 
 import streamlit as st
@@ -60,7 +60,7 @@ st.title("🤖 My AI Agent")
 st.caption("LangChain으로 만든 AI 에이전트와 대화해보세요!")
 
 # 에이전트 초기화 또는 재생성
-agent_key = f"openai_{model_name}_{hash(custom_prompt)}"
+agent_key = f"{model_name}_{hash(custom_prompt)}"
 
 if "agent_key" not in st.session_state or st.session_state.agent_key != agent_key:
     try:
