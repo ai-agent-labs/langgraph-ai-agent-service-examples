@@ -18,6 +18,9 @@ dependencies = [
     "langfuse>=3.0.0",
     # 벡터 저장소 (간단한 예제용)
     "faiss-cpu>=1.7.0",
+    # RAG 평가 (13.3절 배치 평가)
+    "ragas>=0.2.0",
+    "datasets>=2.19.0",
     # 설정 관리
     "python-dotenv>=1.0.1",
     "pydantic>=2.12.5",
