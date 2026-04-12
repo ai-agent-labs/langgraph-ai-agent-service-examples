@@ -59,10 +59,19 @@ def main() -> None:
         print(result)
 
     print("\n== 지표별 평균 ==")
-    scores = getattr(result, "scores", None)
+    # ragas 0.4.x 기준: result.scores 는 list[dict[metric_name, score]].
+    # 샘플별 점수를 지표 단위로 평균해 최종 요약을 계산한다.
+    scores = getattr(result, "scores", None) or []
     if scores:
-        for metric, value in scores.items():
-            print(f"  {metric}: {value:.3f}")
+        averages: dict[str, list[float]] = {}
+        for row in scores:
+            for metric, value in row.items():
+                if value is None:
+                    continue
+                averages.setdefault(metric, []).append(float(value))
+        for metric, values in averages.items():
+            mean = sum(values) / len(values)
+            print(f"  {metric}: {mean:.3f}  (n={len(values)})")
 
 
 if __name__ == "__main__":

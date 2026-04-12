@@ -64,6 +64,8 @@ def _build_dataset(samples: list[dict[str, Any]]):
 def evaluate_rag_batch(
     samples: list[dict[str, Any]],
     metrics: list[Any] | None = None,
+    llm: Any | None = None,
+    embeddings: Any | None = None,
 ):
     """RAGAS로 RAG 샘플 배치를 평가한다.
 
@@ -75,13 +77,19 @@ def evaluate_rag_batch(
     metrics:
         평가 지표 리스트. ``None``이면 기본값(faithfulness, answer_relevancy,
         context_precision, context_recall)을 사용.
+    llm, embeddings:
+        평가용 LLM / 임베딩. ``None``이면 ``gpt-5.2`` (책 L330/354 와 동일) +
+        ``text-embedding-3-small`` 조합을 LangChain 래퍼로 자동 구성한다.
 
     Returns
     -------
     ``ragas.evaluation.EvaluationResult`` — ``.to_pandas()`` 로 DataFrame 변환,
-    개별 점수는 ``result.scores`` 에서 확인.
+    개별 점수는 ``result.scores`` (list[dict]) 또는 ``to_pandas()`` 에서 확인.
     """
+    from langchain_openai import ChatOpenAI, OpenAIEmbeddings
     from ragas import evaluate
+    from ragas.embeddings import LangchainEmbeddingsWrapper
+    from ragas.llms import LangchainLLMWrapper
     from ragas.metrics import (
         answer_relevancy,
         context_precision,
@@ -97,5 +105,17 @@ def evaluate_rag_batch(
             context_recall,
         ]
 
+    if llm is None:
+        llm = LangchainLLMWrapper(ChatOpenAI(model="gpt-5.2"))
+    if embeddings is None:
+        embeddings = LangchainEmbeddingsWrapper(
+            OpenAIEmbeddings(model="text-embedding-3-small")
+        )
+
     dataset = _build_dataset(samples)
-    return evaluate(dataset=dataset, metrics=metrics)
+    return evaluate(
+        dataset=dataset,
+        metrics=metrics,
+        llm=llm,
+        embeddings=embeddings,
+    )
