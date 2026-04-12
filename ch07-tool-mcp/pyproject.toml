@@ -7,6 +7,10 @@ dependencies = [
     "langchain>=0.3.25",
     "langchain-core>=0.3.61",
     "langchain-openai>=0.3.18",
+    "langgraph>=0.4.8",
+    # 7.2절 MCP 통합
+    "langchain-mcp-adapters>=0.1.0",
+    "mcp>=1.2.0",
     "pydantic>=2.11.5",
     "pydantic-settings>=2.9.1",
     "python-dotenv>=1.1.0",
