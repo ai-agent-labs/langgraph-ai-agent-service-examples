@@ -47,7 +47,7 @@ ch09-langgraph/
 ├── src/hr_router/
 │   ├── __init__.py
 │   ├── config.py      # 설정 관리
-│   ├── state.py       # HRRequestState 정의
+│   ├── state.py       # State 정의
 │   ├── nodes.py       # 노드 함수들 (classify, handle_*)
 │   └── graph.py       # StateGraph 구성
 ├── app.py             # Streamlit UI
