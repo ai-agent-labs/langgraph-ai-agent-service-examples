@@ -78,7 +78,7 @@ def create_hr_supervisor():
         temperature=settings.temperature,
     )
 
-    # 에이전트 생성 (책 11.4절: 도메인 에이전트 2개 + 슈퍼바이저 1개)
+    # 도메인 에이전트 2개 + 슈퍼바이저 1개
     leave_agent = create_leave_agent()
     benefit_agent = create_benefit_agent()
 

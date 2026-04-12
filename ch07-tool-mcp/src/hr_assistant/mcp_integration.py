@@ -1,11 +1,10 @@
-"""
-7.2-4절: MCP와 LangChain 통합.
+"""MCP와 LangChain 통합.
 
-책은 Smithery에서 호스팅하는 외부 MCP 서버(네이버 MCP)를 예로 들지만,
-독자가 Smithery 계정 없이도 실습할 수 있도록 두 가지 경로를 모두 제공한다.
+외부 HTTP MCP 서버와 로컬 stdio MCP 서버에 각각 연결하는 두 경로를 제공한다.
+독자가 Smithery 계정 없이도 실습할 수 있도록 로컬 stdio 방식이 fallback.
 
 1. **원격 HTTP MCP 서버** (``fetch_remote_mcp_tools``)
-   - 책의 ``streamablehttp_client`` 예제를 그대로 옮겨 온 것.
+   - ``streamablehttp_client`` 로 원격 MCP 서버에 연결.
    - 환경 변수 ``MCP_SERVER_URL``에 Smithery 등에서 얻은 URL을 설정해야 동작.
 
 2. **로컬 stdio MCP 서버** (``fetch_local_mcp_tools``)
@@ -24,7 +23,7 @@ from pathlib import Path
 
 
 async def fetch_remote_mcp_tools() -> list:
-    """책 7.2-4절 예제: Smithery 등 외부 HTTP MCP 서버에 연결.
+    """Smithery 등 외부 HTTP MCP 서버에 연결해 도구 목록을 로드.
 
     환경 변수 ``MCP_SERVER_URL`` 에 MCP 서버 URL이 설정되어 있어야 한다.
     """

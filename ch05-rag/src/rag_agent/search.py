@@ -6,15 +6,13 @@ from rag_agent.indexer import create_opensearch_client
 
 
 def rrf_score(ranks: list[int], k: int = 60) -> float:
-    """여러 검색 결과에서의 순위를 RRF 점수로 변환합니다.
+    """RRF (Reciprocal Rank Fusion) 점수 계산.
 
-    책 ch05 5.4-3 "RRF 알고리즘" 예제 그대로의 구현:
+    공식: ``score = Σ 1/(k + rank)``
 
-        # RRF 공식: score = Σ 1/(k + rank)
-        return sum(1 / (k + rank) for rank in ranks)
-
-    가중치를 주지 않는 순수 RRF. 여러 검색 방식(예: 벡터, 키워드)에서
-    동일 문서가 얻은 순위 리스트를 입력으로 받아 단일 점수로 합산합니다.
+    여러 검색 방식(예: 벡터, 키워드)에서 동일 문서가 얻은 1-indexed 순위
+    리스트를 받아 단일 점수로 합산한다. 가중치는 포함하지 않으므로, 다중
+    소스를 결합할 때는 외부에서 가중치를 곱해 사용한다.
     """
     return sum(1 / (k + rank) for rank in ranks)
 
@@ -137,8 +135,7 @@ def hybrid_search(
     rrf_scores: dict[str, dict] = {}
 
     # 벡터 검색 결과에 RRF 점수 부여
-    # 책 ch05 L1042 공식: sum(1/(k+rank))은 rank를 1-indexed로 다룸.
-    # enumerate는 0-indexed이므로 start=1로 맞춰 rrf_score 헬퍼와 같은 규약을 쓴다.
+    # rank는 rrf_score 헬퍼와 동일하게 1-indexed로 사용한다.
     for rank, result in enumerate(vector_results, start=1):
         doc_id = result["id"]
         score = vector_weight / (rrf_k + rank)

@@ -1,4 +1,4 @@
-"""구조화된 출력 Streamlit 애플리케이션 (책 8장 LeaveRequest 예제)"""
+"""LeaveRequest 구조화된 출력 Streamlit 애플리케이션."""
 
 import streamlit as st
 from dotenv import load_dotenv

@@ -137,12 +137,10 @@ def evaluate_context_precision(
     context: str,
     trace_id: str | None = None,
 ) -> dict:
-    """
-    Context Precision: 검색된 컨텍스트가 질문과 얼마나 관련 있는지 평가.
+    """Context Precision: 검색된 컨텍스트가 질문과 얼마나 관련 있는지 평가.
 
-    책 13.2절 RAG 평가 지표의 Context Precision 구현 (LLM-as-judge 방식).
-    컨텍스트 문단을 개별 청크로 분리하고, 각 청크가 질문에 관련 있는지를
-    LLM이 판단한 뒤 전체 관련 청크 비율을 반환합니다.
+    LLM-as-judge 방식으로 컨텍스트 문단을 개별 청크로 분리하고, 각 청크가
+    질문에 관련 있는지를 LLM이 판단한 뒤 전체 관련 청크 비율을 반환합니다.
     """
     init_langfuse()
     settings = get_settings()
@@ -220,12 +218,10 @@ def evaluate_context_recall(
     context: str,
     trace_id: str | None = None,
 ) -> dict:
-    """
-    Context Recall: 정답에 필요한 정보가 검색된 컨텍스트에 얼마나 포함되어 있는지 평가.
+    """Context Recall: 정답에 필요한 정보가 검색된 컨텍스트에 얼마나 포함되어 있는지 평가.
 
-    책 13.2절 RAG 평가 지표의 Context Recall 구현. 정답 문장을 개별
-    주장으로 분해한 뒤, 각 주장이 컨텍스트로 뒷받침되는지를 LLM이 판단
-    합니다.
+    정답 문장을 개별 주장으로 분해한 뒤, 각 주장이 컨텍스트로 뒷받침되는지를
+    LLM이 판단합니다.
     """
     init_langfuse()
     settings = get_settings()
